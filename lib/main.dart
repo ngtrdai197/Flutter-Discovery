@@ -6,42 +6,15 @@ void main() => runApp(MyApp());
 class RandomEnglishWord extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return new RandomEnglishState();
   }
 }
 
 class RandomEnglishState extends State<RandomEnglishWord> {
+  final _words = <WordPair>[];
+  final _checkWords = new Set<WordPair>();
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    final _words = <WordPair>[];
-    final _checkWords = new Set<WordPair>();
-
-    Widget _buildRow(WordPair word, int index) {
-      final color = index % 2 == 0 ? Colors.blue : Colors.red;
-      final isChecked = _checkWords.contains(word);
-      return new ListTile(
-        leading: new Icon(
-          !isChecked ? Icons.check_box : Icons.check_box_outline_blank,
-          color: color,
-        ),
-        title: new Text(
-          word.asUpperCase,
-          style: new TextStyle(fontSize: 20.0, color: color),
-        ),
-        onTap: () {
-          setState(() {
-            if (isChecked) {
-              _checkWords.remove(word);
-            } else {
-              _checkWords.add(word);
-            }
-          });
-        },
-      );
-    }
-
     return new Scaffold(
       appBar: new AppBar(
         title: new Text("List of English words"),
@@ -52,6 +25,30 @@ class RandomEnglishState extends State<RandomEnglishWord> {
         }
         return _buildRow(_words[index], index);
       }),
+    );
+  }
+
+  Widget _buildRow(WordPair word, int index) {
+    final color = index % 2 == 0 ? Colors.blue : Colors.red;
+    final isChecked = _checkWords.contains(word);
+    return new ListTile(
+      leading: new Icon(
+        isChecked ? Icons.check_box : Icons.check_box_outline_blank,
+        color: color,
+      ),
+      title: new Text(
+        word.asUpperCase,
+        style: new TextStyle(fontSize: 20.0, color: color),
+      ),
+      onTap: () {
+        setState(() {
+          if (isChecked) {
+            _checkWords.remove(word);
+          } else {
+            _checkWords.add(word);
+          }
+        });
+      },
     );
   }
 }
