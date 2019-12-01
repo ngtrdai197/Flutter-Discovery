@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:myapp/models/user_model.dart';
 import 'package:myapp/widgets/category-selector.dart';
 import 'package:myapp/widgets/favorite_contact.dart';
 import 'package:myapp/widgets/recent_chat.dart';
@@ -11,11 +12,21 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   @override
+  void initState() {
+    super.initState();
+    fetchUsers().then((value) {
+      print(value[0].fullName);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     Widget _appBarHeader = new AppBar(
       leading: IconButton(
         icon: Icon(Icons.arrow_back),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pop(context);
+        },
       ),
       title: Center(
         child: Text(
