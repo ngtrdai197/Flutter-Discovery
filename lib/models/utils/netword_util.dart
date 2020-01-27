@@ -12,7 +12,7 @@ class NetworkUtil {
         receiveTimeout: 5000,
         connectTimeout: 5000,
         headers: {'x-access-token': token});
-    options.baseUrl = ApiConstants.BASE_URL;
+    options.baseUrl = ApiConstants.baseUrl;
     _dio = Dio(options);
     // _dio.interceptors.add(LogInterceptor()); // log response the server return;
   }
